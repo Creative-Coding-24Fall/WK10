@@ -3,6 +3,19 @@
 
 let blinks = [];
 
+class Blinky {
+  constructor(x,y){
+    this.x = mouseX;
+    this.y = mouseY;
+    this.visible= false;
+    this.period= random(100, 1000);
+    this.changed= 0;
+    this.diam = 50;
+    this.mocolor= color(250,0,0);
+    this. mouseOver = false;
+  }
+}
+
 function setup() {
   createCanvas(windowWidth, windowHeight);
   noStroke();
@@ -17,19 +30,19 @@ function draw() {
       mBlink.changed = millis();
     }
 
-    if (mBlink.visible) {
+    let isMouseOver = dist(mouseX, mouseY, mBlink.x, mBlink.y) < (mBlink.Diam/2);
+
+    if (mBlink.visible || isMouseOver) {
+      if(isMouseOver){
+        fill(mBlink.mocolor)
+      }else {
+        fill(255);
+      }
       ellipse(mBlink.x, mBlink.y, mBlink.diam);
     }
   }
 }
 
 function mousePressed() {
-  blinks.push({
-    x: mouseX,
-    y: mouseY,
-    visible: false,
-    period: random(100, 1000),
-    changed: 0,
-    diam: 50,
-  });
+  blinks.push(new Blinky(mouseX, mouseY));
 }
